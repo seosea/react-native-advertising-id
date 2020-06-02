@@ -5,6 +5,7 @@
 //
 
 #import "RNAdvertisingId.h"
+#import <AdSupport/ASIdentifierManager.h>
 
 
 @implementation RNAdvertisingId
@@ -21,18 +22,17 @@ RCT_EXTERN_METHOD(getAdvertisingId:(RCTPromiseResolveBlock)resolve rejecter: (RC
 
 + (void)getAdvertisingId:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject
 {
-    const BOOL isAdvertisingTrackingEnabled = [ASIdentifierManager.shared().isAdvertisingTrackingEnabled];
-    
-    const NSMutableDictionary *response = [
-        @"isLimitAdTrackingEnabled": [!isAdvertisingTrackingEnabled],
-        @"advertisingId": @""
-    ];
+    BOOL isAdvertisingTrackingEnabled = [[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled];
+
+    const NSMutableDictionary *response = [NSMutableDictionary dictionary];
+    [response setObject: [NSNumber numberWithBool:!isAdvertisingTrackingEnabled] forKey:@"isLimitAdTrackingEnabled"];
+    [response setObject:@"" forKey:@"advertisingId"];
 
     if (isAdvertisingTrackingEnabled) {
-        const NSString *idfa = [ASIdentifierManager.shared().advertisingIdentifier.uuidString];
+        const NSString *idfa =[[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
         response[@"advertisingId"] = idfa;
     }
-    
+
     resolve(response);
 }
 @end
