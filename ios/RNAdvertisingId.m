@@ -4,7 +4,6 @@
 //  Created by App Like on 28.09.17.
 //
 
-#import "RNAdvertisingId-Bridging-Header.h"
 #import "RNAdvertisingId.h"
 
 
