@@ -12,6 +12,11 @@ Consistent access to Advertising Id (AAID/GAID and IDFA) for Android and iOS on 
   * [Manual Linking - Android](#android)
 * [Usage](#usage)
 
+## Update
+
+1. Android :Sdk version update. minSdk 18 / targetSdk 28 
+2. ios : Change swift to objective-c
+
 ## Getting started
 
 `$ npm install react-native-advertising-id --save`
